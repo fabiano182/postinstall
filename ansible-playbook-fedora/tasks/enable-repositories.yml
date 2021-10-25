@@ -1,0 +1,14 @@
+#- name: Enable RPM Fusion repositories
+#  dnf:
+#   name: "{{ item }}"
+#   state: present
+#  when: ansible_distribution == 'Fedora'
+#  loop:
+#   - 'http://mirror.host.ag/rpmfusion/free/fedora/rpmfusion-free-release-35.noarch.rpm'
+#   - 'http://mirror.host.ag/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-35.noarch.rpm'
+
+- name: Enable Flatpak Repositories
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo

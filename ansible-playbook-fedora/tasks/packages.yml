@@ -1,0 +1,50 @@
+- name: Install packages
+  dnf:
+    name: 
+      - fish
+      - neovim
+      - timeshift
+      - neofetch 
+      - htop 
+      - gnome-tweaks 
+      - snapd 
+    state: present
+
+- name: Install Nvidia Driver
+  dnf:
+    name:
+      - akmod-nvidia
+      - xorg-x11-drv-nvidia-cuda
+      - vulkan
+      - xorg-x11-dvr-nvidia-cuda-libs
+    state: present
+
+- name: Create a symlink for snapd
+  file:
+    src: "/var/lib/snapd/snap"
+    dest: "/snap"
+    state: link
+  
+- name: Install Snap packages
+  snap:
+    name:
+      - postman
+      - dbeaver-ce
+ 
+- name: Install Snap packages with --classic flag
+  snap:
+    classic: yes
+    name:
+      - node
+      - code
+      - spotify
+
+- name: Install system flatpaks
+  flatpak:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - com.slack.Slack
+   - org.remmina.Remmina
+   - com.discordapp.Discord
+   - org.telegram.desktop

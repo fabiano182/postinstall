@@ -1,0 +1,7 @@
+- hosts: localhost
+  connection: local
+  pre_tasks:
+    - include: tasks/enable-repositories.yml
+  tasks:
+    - include: tasks/update.yml
+    - include: tasks/packages.yml
