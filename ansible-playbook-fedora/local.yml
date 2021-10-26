@@ -5,3 +5,7 @@
   tasks:
     - include: tasks/update.yml
     - include: tasks/packages.yml
+
+    - name: Rebooting
+      reboot:
+        post_reboot_delay: 15

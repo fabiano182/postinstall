@@ -1,11 +1,21 @@
-#- name: Enable RPM Fusion repositories
-#  dnf:
-#   name: "{{ item }}"
-#   state: present
-#  when: ansible_distribution == 'Fedora'
-#  loop:
-#   - 'http://mirror.host.ag/rpmfusion/free/fedora/rpmfusion-free-release-35.noarch.rpm'
-#   - 'http://mirror.host.ag/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-35.noarch.rpm'
+- name: Importing (free) key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
+
+- name: Importing (non-free) key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-2020
+
+- name: Enable RPM Fusion repositories
+  dnf:
+   name: "{{ item }}"
+   state: present
+  when: ansible_distribution == 'Fedora'
+  loop:
+   - 'https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm'
+   - 'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm'
 
 - name: Enable Flatpak Repositories
   flatpak_remote:

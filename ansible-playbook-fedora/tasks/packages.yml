@@ -6,8 +6,18 @@
       - timeshift
       - neofetch 
       - htop 
-      - gnome-tweaks 
+      - gnome-tweaks
+      - gnome-shell-extension-appindicator
+      - inkscape
       - snapd 
+    state: present
+
+- name: Install programming languagues
+  dnf:
+    name:
+      - go
+      - rustc
+      - cargo
     state: present
 
 - name: Install Nvidia Driver
@@ -15,8 +25,8 @@
     name:
       - akmod-nvidia
       - xorg-x11-drv-nvidia-cuda
+      - xorg-x11-drv-nvidia-cuda-libs
       - vulkan
-      - xorg-x11-dvr-nvidia-cuda-libs
     state: present
 
 - name: Create a symlink for snapd
